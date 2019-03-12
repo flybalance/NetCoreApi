@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NetCoreApi.Domain.Dto.response
+namespace NetCoreApi.Domain.Response
 {
     [Serializable]
     public class ApiResponse<T>

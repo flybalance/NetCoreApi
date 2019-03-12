@@ -1,5 +1,5 @@
 ﻿using NetCoreApi.Domain.Dto;
-using NetCoreApi.Domain.Dto.response;
+using NetCoreApi.Domain.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;

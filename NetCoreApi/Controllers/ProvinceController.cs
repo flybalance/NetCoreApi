@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreApi.Domain.Dto;
-using NetCoreApi.Domain.Dto.response;
+using NetCoreApi.Domain.Response;
 using NetCoreApi.Service;
 
 namespace NetCoreApi.Controllers

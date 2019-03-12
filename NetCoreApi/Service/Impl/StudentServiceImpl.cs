@@ -1,6 +1,6 @@
 ﻿using NetCoreApi.Dao;
 using NetCoreApi.Domain.Dto;
-using NetCoreApi.Domain.Dto.response;
+using NetCoreApi.Domain.Response;
 
 namespace NetCoreApi.Service.Impl
 {

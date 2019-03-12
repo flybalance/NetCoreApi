@@ -1,10 +1,6 @@
 ﻿using MongoDB.Driver;
 using NetCoreApi.Common.Utils;
 using NetCoreApi.Domain.Dto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NetCoreApi.Models
 {
