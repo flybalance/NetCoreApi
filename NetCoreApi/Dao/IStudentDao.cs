@@ -13,5 +13,12 @@ namespace NetCoreApi.Dao
         /// <param name="id"></param>
         /// <returns></returns>
         Student FindStudentById(long id);
+
+        /// <summary>
+        /// 根据name获取学生信息
+        /// </summary>
+        /// <param name="stuName"></param>
+        /// <returns></returns>
+        Student FindStudentByName(string stuName);
     }
 }

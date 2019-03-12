@@ -1,4 +1,5 @@
 ﻿using NetCoreApi.Domain.Dto;
+using NetCoreApi.Domain.Dto.response;
 
 namespace NetCoreApi.Service
 {
@@ -12,6 +13,13 @@ namespace NetCoreApi.Service
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Student FindStudentById(long id);
+        ApiResponse<Student> FindStudentById(long id);
+
+        /// <summary>
+        /// 根据name获取学生信息
+        /// </summary>
+        /// <param name="stuName"></param>
+        /// <returns></returns>
+        ApiResponse<Student> FindStudentByName(string stuName);
     }
 }

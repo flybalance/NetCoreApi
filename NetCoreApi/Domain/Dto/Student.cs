@@ -15,15 +15,22 @@
         /// <summary>
         /// 有参构造函数
         /// </summary>
+        ///   /// <param name="id"></param>
         /// <param name="stuName"></param>
         /// <param name="sex"></param>
         /// <param name="age"></param>
-        public Student(string stuName, int sex, int age)
+        public Student(long id, string stuName, int sex, int age)
         {
-            this.StuName = stuName;
-            this.Sex = sex;
-            this.Age = age;
+            Id = id;
+            StuName = stuName;
+            Sex = sex;
+            Age = age;
         }
+
+        /// <summary>
+        /// 流水号
+        /// </summary>
+        public long Id { get; set; }
 
         /// <summary>
         /// 学生姓名
@@ -46,7 +53,7 @@
         /// <returns></returns>
         public override string ToString()
         {
-            return $"[StuName={StuName}, Sex={Sex}, Age={Age}]";
+            return $"[Id={Id} ,StuName={StuName}, Sex={Sex}, Age={Age}]";
         }
     }
 }

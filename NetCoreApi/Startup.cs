@@ -11,6 +11,7 @@ using NetCoreApi.Service;
 using NetCoreApi.Service.Impl;
 using Newtonsoft.Json;
 using System;
+using System.IO;
 
 namespace NetCoreApi
 {
@@ -41,9 +42,10 @@ namespace NetCoreApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
+            //services.AddApiVersioning();
 
-            // Swagger
+            //// Swagger
             //services.AddSwaggerGen(options =>
             //{
             //    options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
@@ -57,7 +59,7 @@ namespace NetCoreApi
             //    options.IncludeXmlComments(xmlPath);
             //});
 
-            // AspNetCore.Mvc.Versioning
+            //AspNetCore.Mvc.Versioning
             //services.AddApiVersioning(o =>
             //{
             //    // 如果设置为true, 在Api请求的响应头部，会追加当前Api支持的版本
@@ -68,8 +70,11 @@ namespace NetCoreApi
             //    o.DefaultApiVersion = new ApiVersion(1, 0);
             //});
 
-            services.AddSingleton<IStudentDao, StudentDaoImp>();
-            services.AddSingleton<IStudentService, StudentServiceImpl>();
+            _ = services.AddSingleton<IStudentDao, StudentDaoImp>();
+            _ = services.AddSingleton<IStudentService, StudentServiceImpl>();
+
+            _ = services.AddSingleton<IProvinceDao, ProvinceDaoImpl>();
+            _ = services.AddSingleton<IProvinceService, ProvinceServiceImpl>();
         }
 
         /// <summary>
@@ -77,8 +82,9 @@ namespace NetCoreApi
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
+        /// /// <param name="lifeTime"></param>
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime lifetime)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime lifeTime)
         {
             if (env.IsDevelopment())
             {
@@ -86,6 +92,8 @@ namespace NetCoreApi
             }
 
             app.UseMvc();
+            //app.UseApiVersioning();
+
             //app.UseSwagger();
             //app.UseSwaggerUI(options =>
             //{
@@ -106,11 +114,10 @@ namespace NetCoreApi
                 Name = Configuration["Service:Name"],
             };
 
+            //Console.WriteLine(JsonConvert.SerializeObject(consulService));
+            //Console.WriteLine(JsonConvert.SerializeObject(healthService));
 
-            Console.WriteLine(JsonConvert.SerializeObject(consulService));
-            Console.WriteLine(JsonConvert.SerializeObject(healthService));
-
-            app.RegisterConsul(lifetime, healthService, consulService);
+            // app.RegisterConsul(lifeTime, healthService, consulService);
         }
     }
 

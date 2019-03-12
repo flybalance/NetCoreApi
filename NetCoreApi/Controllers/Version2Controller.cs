@@ -6,8 +6,9 @@ namespace NetCoreApi.Controllers
     /// <summary>
     /// Version2Controller
     /// </summary>
-    [ApiVersion("2.0")]
-    [Route("api/[controller]/[action]")]
+    //[ApiVersion("2.0")]
+    //[Route("api/[controller]/[action]")]
+    [Route("api/v2")]
     [ApiController]
     public class Version2Controller : ControllerBase
     {
