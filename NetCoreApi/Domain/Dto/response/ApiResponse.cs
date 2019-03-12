@@ -13,7 +13,7 @@ namespace NetCoreApi.Domain.Dto.response
 
         public string Message { get; set; }
 
-        public DateTime TimeSpan { get; set; } = DateTime.Now;
+        public DateTime Timestamp { get; set; } = DateTime.Now;
 
         public ApiResult ApiResult { get; set; }
 

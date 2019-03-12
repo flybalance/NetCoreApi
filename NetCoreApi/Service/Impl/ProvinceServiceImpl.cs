@@ -19,7 +19,7 @@ namespace NetCoreApi.Service.Impl
 
         public ApiResponse<bool> AddProvince(Province province)
         {
-            ApiResponse<bool> apiResponse = new ApiResponse<bool>();
+            ApiResponse<bool> apiResponse = ApiResponse<bool>.GetInstance();
             if (null == province)
             {
                 return apiResponse.Error();
@@ -40,7 +40,7 @@ namespace NetCoreApi.Service.Impl
 
         public ApiResponse<bool> DeleteProvinceById(long id)
         {
-            ApiResponse<bool> apiResponse = new ApiResponse<bool>();
+            ApiResponse<bool> apiResponse = ApiResponse<bool>.GetInstance();
 
             try
             {
@@ -57,7 +57,7 @@ namespace NetCoreApi.Service.Impl
 
         public ApiResponse<Province> FindProvinceById(long id)
         {
-            ApiResponse<Province> apiResponse = new ApiResponse<Province>();
+            ApiResponse<Province> apiResponse = ApiResponse<Province>.GetInstance();
 
             try
             {
