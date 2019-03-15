@@ -8,7 +8,7 @@ namespace NetCoreApi.Common.Utils
 
         private static IMongoCollection<T> mongoCollection = null;
 
-        private static object lockHelper = new object();
+        private static readonly object lockHelper = new object();
 
         public static IMongoCollection<T> GetMongoCollection(string collectionName = "")
         {
