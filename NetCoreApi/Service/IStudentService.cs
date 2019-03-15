@@ -8,7 +8,7 @@ namespace NetCoreApi.Service
     /// <summary>
     /// 学生信息Service层
     /// </summary>
-    public interface IStudentService: IDependency
+    public interface IStudentService : IDependency
     {
         /// <summary>
         /// 添加学生信息

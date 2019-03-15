@@ -75,8 +75,6 @@ namespace NetCoreApi
 
             _ = services.AddSingleton<IProvinceDao, ProvinceDaoImpl>();
             _ = services.AddSingleton<IProvinceService, ProvinceServiceImpl>();
-
-
         }
 
         /// <summary>

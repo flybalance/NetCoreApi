@@ -4,7 +4,7 @@ using NetCoreApi.Domain.Response;
 
 namespace NetCoreApi.Service
 {
-    public interface IProvinceService: IDependency
+    public interface IProvinceService : IDependency
     {
         ApiResponse<bool> AddProvince(Province province);
 

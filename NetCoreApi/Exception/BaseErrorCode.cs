@@ -1,14 +1,11 @@
 ﻿using NetCoreApi.Common.Extention;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NetCoreApi.Exception
 {
     public enum BaseErrorCode
     {
         /*********************** 公共错误码10开头 *********************/
+
         [KeyValueDescription("000000", "处理成功")]
         SUCCESS,
 

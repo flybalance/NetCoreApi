@@ -7,7 +7,7 @@ namespace NetCoreApi.Dao
     /// <summary>
     /// 学生信息Dao层
     /// </summary>
-    public interface IStudentDao:IDependency
+    public interface IStudentDao : IDependency
     {
         /// <summary>
         ///  添加学生信息

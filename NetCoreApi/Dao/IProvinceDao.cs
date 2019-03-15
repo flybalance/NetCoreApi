@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace NetCoreApi.Dao
 {
-    public interface IProvinceDao: IDependency
+    public interface IProvinceDao : IDependency
     {
         void AddProvince(Province province);
 
