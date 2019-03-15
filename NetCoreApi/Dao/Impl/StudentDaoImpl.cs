@@ -1,4 +1,7 @@
-﻿using NetCoreApi.Domain.Dto;
+﻿using MongoDB.Driver;
+using NetCoreApi.Common.Utils;
+using NetCoreApi.Domain.Dto;
+using System.Collections.Generic;
 
 namespace NetCoreApi.Dao.Impl
 {
@@ -7,6 +10,22 @@ namespace NetCoreApi.Dao.Impl
     /// </summary>
     public class StudentDaoImp : IStudentDao
     {
+        private readonly IMongoCollection<Student> _studentContext = null;
+
+        public StudentDaoImp()
+        {
+            _studentContext = MongoUtil<Student>.GetMongoCollection("student");
+        }
+
+        /// <summary>
+        /// 添加学生信息
+        /// </summary>
+        /// <param name="student"></param>
+        public void AddStudent(Student student)
+        {
+            _studentContext.InsertOneAsync(student);
+        }
+
         /// <summary>
         /// 根据id获取学生信息
         /// </summary>
@@ -14,7 +33,7 @@ namespace NetCoreApi.Dao.Impl
         /// <returns></returns>
         public Student FindStudentById(long id)
         {
-            return new Student(id, "张三", 1, 16);
+            return _studentContext.Find(t => t.Id == id).SingleOrDefault();
         }
 
         /// <summary>
@@ -22,9 +41,9 @@ namespace NetCoreApi.Dao.Impl
         /// </summary>
         /// <param name="stuName"></param>
         /// <returns></returns>
-        public Student FindStudentByName(string stuName)
+        public IList<Student> FindStudentByName(string stuName)
         {
-            return new Student(10, stuName, 1, 10);
+            return _studentContext.Find(t => t.StuName.Contains(stuName)).ToList();
         }
     }
 }

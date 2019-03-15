@@ -1,4 +1,5 @@
-﻿using Consul;
+﻿using Autofac;
+using Consul;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +10,7 @@ using NetCoreApi.Dao.Impl;
 using NetCoreApi.Domain.Dto.consul;
 using NetCoreApi.Service;
 using NetCoreApi.Service.Impl;
-using Newtonsoft.Json;
 using System;
-using System.IO;
 
 namespace NetCoreApi
 {
@@ -34,6 +33,8 @@ namespace NetCoreApi
         /// </summary>
         public IConfiguration Configuration { get; }
 
+        public IContainer ApplicationContainer { get; private set; }
+
         /// <summary>
         /// 配置项目
         /// </summary>
@@ -43,7 +44,6 @@ namespace NetCoreApi
         {
             services.AddOptions();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
-            //services.AddApiVersioning();
 
             //// Swagger
             //services.AddSwaggerGen(options =>
@@ -75,6 +75,8 @@ namespace NetCoreApi
 
             _ = services.AddSingleton<IProvinceDao, ProvinceDaoImpl>();
             _ = services.AddSingleton<IProvinceService, ProvinceServiceImpl>();
+
+
         }
 
         /// <summary>
@@ -100,7 +102,6 @@ namespace NetCoreApi
             //    options.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
             //});
 
-
             ConsulService consulService = new ConsulService()
             {
                 IP = Configuration["Consul:IP"],
@@ -113,9 +114,6 @@ namespace NetCoreApi
                 Port = Convert.ToInt32(Configuration["Service:Port"]),
                 Name = Configuration["Service:Name"],
             };
-
-            //Console.WriteLine(JsonConvert.SerializeObject(consulService));
-            //Console.WriteLine(JsonConvert.SerializeObject(healthService));
 
             // app.RegisterConsul(lifeTime, healthService, consulService);
         }
@@ -163,7 +161,5 @@ namespace NetCoreApi
 
             return app;
         }
-
     }
-
 }

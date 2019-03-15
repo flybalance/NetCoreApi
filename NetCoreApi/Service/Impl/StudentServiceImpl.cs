@@ -1,6 +1,10 @@
-﻿using NetCoreApi.Dao;
+﻿using NetCoreApi.Common.Extention;
+using NetCoreApi.Dao;
 using NetCoreApi.Domain.Dto;
 using NetCoreApi.Domain.Response;
+using NetCoreApi.Exception;
+using NetCoreApi.Exception.Code;
+using System.Collections.Generic;
 
 namespace NetCoreApi.Service.Impl
 {
@@ -9,15 +13,42 @@ namespace NetCoreApi.Service.Impl
     /// </summary>
     public class StudentServiceImpl : IStudentService
     {
-        private IStudentDao StudentDao { get; }
+        private readonly IStudentDao _studentDao;
 
         /// <summary>
-        ///
+        /// 构造函数
         /// </summary>
         /// <param name="studentDao"></param>
         public StudentServiceImpl(IStudentDao studentDao)
         {
-            StudentDao = studentDao;
+            _studentDao = studentDao;
+        }
+
+        /// <summary>
+        /// 添加学生信息
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
+        public ApiResponse<bool> AddStudent(Student student)
+        {
+            ApiResponse<bool> apiResponse = ApiResponse<bool>.GetInstance();
+            if (null == student)
+            {
+                EnumOperate.EnumItem enumItem = StudentErrorCode.REQUEST_PARAM_ENTITY_IS_NULL.GetBaseDescription();
+                apiResponse.Error(enumItem.Code, enumItem.Message);
+            }
+
+            try
+            {
+                _studentDao.AddStudent(student);
+                apiResponse.Success(true);
+            }
+            catch (System.Exception exception)
+            {
+                apiResponse.Error(exception.Message);
+            }
+
+            return apiResponse;
         }
 
         /// <summary>
@@ -31,17 +62,12 @@ namespace NetCoreApi.Service.Impl
 
             try
             {
-                Student student = StudentDao.FindStudentById(id);
-                if (null == student)
-                {
-                    apiResponse.Error();
-                }
-
+                Student student = _studentDao.FindStudentById(id);
                 apiResponse.Success(student);
             }
-            catch (System.Exception)
+            catch (System.Exception exception)
             {
-                throw;
+                apiResponse.Error(exception.Message);
             }
 
             return apiResponse;
@@ -52,28 +78,24 @@ namespace NetCoreApi.Service.Impl
         /// </summary>
         /// <param name="stuName"></param>
         /// <returns></returns>
-        public ApiResponse<Student> FindStudentByName(string stuName)
+        public ApiResponse<IList<Student>> FindStudentByName(string stuName)
         {
-            ApiResponse<Student> apiResponse = ApiResponse<Student>.GetInstance();
+            ApiResponse<IList<Student>> apiResponse = ApiResponse<IList<Student>>.GetInstance();
 
             if (string.IsNullOrEmpty(stuName))
             {
-                apiResponse.Error();
+                EnumOperate.EnumItem enumItem = BaseErrorCode.REQUEST_PARAM_ERROR.GetBaseDescription();
+                apiResponse.Error(enumItem.Code, enumItem.Message);
             }
 
             try
             {
-                Student student = StudentDao.FindStudentByName(stuName);
-                if (null == student)
-                {
-
-                }
-
-                apiResponse.Success(student);
+                var studentList = _studentDao.FindStudentByName(stuName);
+                apiResponse.Success(studentList);
             }
-            catch (System.Exception)
+            catch (System.Exception exception)
             {
-                throw;
+                apiResponse.Error(exception.Message);
             }
 
             return apiResponse;

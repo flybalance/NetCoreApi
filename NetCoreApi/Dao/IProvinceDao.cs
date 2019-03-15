@@ -1,12 +1,10 @@
-﻿using NetCoreApi.Domain.Dto;
-using System;
+﻿using NetCoreApi.Common.Interface;
+using NetCoreApi.Domain.Dto;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NetCoreApi.Dao
 {
-    public interface IProvinceDao
+    public interface IProvinceDao: IDependency
     {
         void AddProvince(Province province);
 

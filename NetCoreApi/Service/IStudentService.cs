@@ -1,15 +1,24 @@
-﻿using NetCoreApi.Domain.Dto;
+﻿using NetCoreApi.Common.Interface;
+using NetCoreApi.Domain.Dto;
 using NetCoreApi.Domain.Response;
+using System.Collections.Generic;
 
 namespace NetCoreApi.Service
 {
     /// <summary>
     /// 学生信息Service层
     /// </summary>
-    public interface IStudentService
+    public interface IStudentService: IDependency
     {
         /// <summary>
-        /// 根据id获取学生信息 
+        /// 添加学生信息
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
+        ApiResponse<bool> AddStudent(Student student);
+
+        /// <summary>
+        /// 根据id获取学生信息
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -20,6 +29,6 @@ namespace NetCoreApi.Service
         /// </summary>
         /// <param name="stuName"></param>
         /// <returns></returns>
-        ApiResponse<Student> FindStudentByName(string stuName);
+        ApiResponse<IList<Student>> FindStudentByName(string stuName);
     }
 }

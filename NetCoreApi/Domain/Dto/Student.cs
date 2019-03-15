@@ -1,4 +1,6 @@
-﻿namespace NetCoreApi.Domain.Dto
+﻿using MongoDB.Bson.Serialization.Attributes;
+
+namespace NetCoreApi.Domain.Dto
 {
     /// <summary>
     /// 学信信息实体
@@ -30,6 +32,7 @@
         /// <summary>
         /// 流水号
         /// </summary>
+        [BsonId]
         public long Id { get; set; }
 
         /// <summary>

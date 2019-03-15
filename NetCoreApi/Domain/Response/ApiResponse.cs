@@ -1,8 +1,7 @@
-﻿using NetCoreApi.Common.Utils;
+﻿using NetCoreApi.Common.Extention;
+using NetCoreApi.Common.Utils;
+using NetCoreApi.Exception;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NetCoreApi.Domain.Response
 {
@@ -23,6 +22,10 @@ namespace NetCoreApi.Domain.Response
         {
             ApiResult = ApiResult.Success;
 
+            EnumOperate.EnumItem enumItem = BaseErrorCode.SUCCESS.GetBaseDescription();
+            Code = enumItem.Code;
+            Message = enumItem.Message;
+
             return this;
         }
 
@@ -31,12 +34,29 @@ namespace NetCoreApi.Domain.Response
             ApiResult = ApiResult.Success;
             Data = data;
 
+            EnumOperate.EnumItem enumItem = BaseErrorCode.SUCCESS.GetBaseDescription();
+            Code = enumItem.Code;
+            Message = enumItem.Message;
+
             return this;
         }
 
         public ApiResponse<T> Error()
         {
             ApiResult = ApiResult.Error;
+
+            EnumOperate.EnumItem enumItem = BaseErrorCode.FAIL.GetBaseDescription();
+            Code = enumItem.Code;
+            Message = enumItem.Message;
+
+            return this;
+        }
+
+        public ApiResponse<T> Error(string message)
+        {
+            ApiResult = ApiResult.Error;
+            Code = "000000";
+            Message = message;
 
             return this;
         }
@@ -49,7 +69,6 @@ namespace NetCoreApi.Domain.Response
 
             return this;
         }
-
 
         public static ApiResponse<T> GetInstance()
         {

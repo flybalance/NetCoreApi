@@ -12,6 +12,9 @@ namespace NetCoreApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Get() => Ok("ok");
+        public IActionResult Get()
+        {
+            return Ok("ok");
+        }
     }
 }

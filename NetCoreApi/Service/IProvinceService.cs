@@ -1,13 +1,10 @@
-﻿using NetCoreApi.Domain.Dto;
+﻿using NetCoreApi.Common.Interface;
+using NetCoreApi.Domain.Dto;
 using NetCoreApi.Domain.Response;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NetCoreApi.Service
 {
-    public interface IProvinceService
+    public interface IProvinceService: IDependency
     {
         ApiResponse<bool> AddProvince(Province province);
 

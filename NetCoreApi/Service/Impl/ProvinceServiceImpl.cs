@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using NetCoreApi.Dao;
+﻿using NetCoreApi.Dao;
 using NetCoreApi.Domain.Dto;
 using NetCoreApi.Domain.Response;
 
@@ -10,11 +6,11 @@ namespace NetCoreApi.Service.Impl
 {
     public class ProvinceServiceImpl : IProvinceService
     {
-        private IProvinceDao ProvinceDao { get; }
+        private readonly IProvinceDao _provinceDao;
 
         public ProvinceServiceImpl(IProvinceDao provinceDao)
         {
-            ProvinceDao = provinceDao;
+            _provinceDao = provinceDao;
         }
 
         public ApiResponse<bool> AddProvince(Province province)
@@ -27,10 +23,10 @@ namespace NetCoreApi.Service.Impl
 
             try
             {
-                ProvinceDao.AddProvince(province);
+                _provinceDao.AddProvince(province);
                 apiResponse.Success(true);
             }
-            catch (Exception)
+            catch (System.Exception)
             {
                 throw;
             }
@@ -44,10 +40,10 @@ namespace NetCoreApi.Service.Impl
 
             try
             {
-                ProvinceDao.DeleteProvinceById(id);
+                _provinceDao.DeleteProvinceById(id);
                 apiResponse.Success(true);
             }
-            catch (Exception)
+            catch (System.Exception)
             {
                 throw;
             }
@@ -61,12 +57,12 @@ namespace NetCoreApi.Service.Impl
 
             try
             {
-                Province province = ProvinceDao.FindProvinceById(id);
+                Province province = _provinceDao.FindProvinceById(id);
                 apiResponse.Success(province);
             }
-            catch (Exception)
+            catch (System.Exception exception)
             {
-                throw;
+                apiResponse.Error(exception.Message);
             }
 
             return apiResponse;

@@ -1,8 +1,7 @@
 ﻿using MongoDB.Driver;
-using NetCoreApi.Common.Utils;
 using NetCoreApi.Domain.Dto;
 
-namespace NetCoreApi.Models
+namespace NetCoreApi.Context
 {
     public class ProvinceContext
     {
@@ -12,11 +11,11 @@ namespace NetCoreApi.Models
 
         static ProvinceContext()
         {
-            var client = MongoUtil.GetMongoClient();
-            if (null != client)
-            {
-                mongoDatabase = client.GetDatabase(DbName);
-            }
+            //var client = MongoUtil.GetMongoClient();
+            //if (null != client)
+            //{
+            //    mongoDatabase = client.GetDatabase(DbName);
+            //}
         }
 
         public IMongoCollection<Province> Province
