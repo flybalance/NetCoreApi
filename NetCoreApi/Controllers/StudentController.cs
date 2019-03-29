@@ -10,7 +10,7 @@ namespace NetCoreApi.Controllers
     /// 学生信息服务控制层
     /// </summary>
     [Produces("application/json")]
-    [Route("api/student/[action]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class StudentController : ControllerBase
     {
@@ -41,7 +41,7 @@ namespace NetCoreApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("{id}")]
         public ApiResponse<Student> FindStudentById(long id)
         {
             return _studentService.FindStudentById(id);
@@ -52,7 +52,7 @@ namespace NetCoreApi.Controllers
         /// </summary>
         /// <param name="stuName"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("{stuName}")]
         public ApiResponse<IList<Student>> FindStudentByName(string stuName)
         {
             return _studentService.FindStudentByName(stuName);

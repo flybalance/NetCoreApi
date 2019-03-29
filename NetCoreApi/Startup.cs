@@ -3,6 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using Consul;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,9 +42,13 @@ namespace NetCoreApi
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             //services.AddOptions();
-            services.AddMvc().AddJsonOptions(options =>
-                options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver()).
-                SetCompatibilityVersion(CompatibilityVersion.Latest);
+            services.AddMvc();
+            //services.AddMvc().AddJsonOptions(options =>
+            //    options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver()).
+            //    SetCompatibilityVersion(CompatibilityVersion.Latest);
+
+            // 路由配置为小写
+            services.AddRouting(options => options.LowercaseUrls = true);
 
             // Swagger
             services.AddSwaggerGen(options =>
@@ -59,6 +64,7 @@ namespace NetCoreApi
                 options.IncludeXmlComments(xmlPath);
             });
 
+
             //AspNetCore.Mvc.Versioning
             //services.AddApiVersioning(o =>
             //{
@@ -73,7 +79,7 @@ namespace NetCoreApi
             // 实例化 AutoFac  容器
             var builder = new ContainerBuilder();
 
-            // CoreMVC是继承接口的实现方法类库名称
+            // NetCoreApi是继承接口的实现方法类库名称
             var assemblys = Assembly.Load("NetCoreApi");
             // IDependency 是一个接口（所有要实现依赖注入的借口都要继承该接口）
             var baseType = typeof(IDependency);

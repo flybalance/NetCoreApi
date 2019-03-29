@@ -2,6 +2,7 @@
 using NetCoreApi.Domain.Dto;
 using NetCoreApi.Domain.Response;
 using NetCoreApi.Service;
+using System.Threading.Tasks;
 
 namespace NetCoreApi.Controllers
 {
@@ -9,7 +10,7 @@ namespace NetCoreApi.Controllers
     /// 省份信息
     /// </summary>
     [Produces("application/json")]
-    [Route("api/province/[action]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class ProvinceController : ControllerBase
     {
@@ -52,9 +53,9 @@ namespace NetCoreApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public ApiResponse<Province> FindProvinceById(long id)
+        public async Task<ApiResponse<Province>> FindProvinceById(long id)
         {
-            return _provinceService.FindProvinceById(id);
+            return await Task.Run(() => _provinceService.FindProvinceById(id));
         }
     }
 }

@@ -7,3 +7,5 @@
 6、 默认返回的json数据，属性首字母为小写，此配置为更改属性为初始化定义的大小写状态
 services.AddMvc().AddJsonOptions(options =>
                 options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver())
+7、路由配置为小写
+services.AddRouting(options => options.LowercaseUrls = true);
