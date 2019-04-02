@@ -1,6 +1,8 @@
-﻿using NetCoreApi.Service.Dao;
+﻿using NetCoreApi.Service.Common.Extention;
+using NetCoreApi.Service.Dao;
 using NetCoreApi.Service.Domain.Dto;
 using NetCoreApi.Service.Domain.Response;
+using NetCoreApi.Service.Exception.Code;
 
 namespace NetCoreApi.Service.Service.Impl
 {
@@ -19,6 +21,13 @@ namespace NetCoreApi.Service.Service.Impl
             if (null == province)
             {
                 return apiResponse.Error();
+            }
+
+            if (string.IsNullOrEmpty(province.ProvinceName))
+            {
+                EnumOperate.EnumItem enumItem = ProvinceErrorCode.REQUEST_PROVINCE_NAME_IS_EMPTY.GetBaseDescription();
+
+                return apiResponse.Error(enumItem.Code, enumItem.Message);
             }
 
             try
