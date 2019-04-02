@@ -1,0 +1,64 @@
+// 固定配置方式
+//{
+//  "ReRoutes": [
+//    {
+//      "DownstreamPathTemplate": "/student/findstudentbyname/{stuName}",
+//      "DownstreamScheme": "http",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "192.168.20.133",
+//          "Port": 5300
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/getway/student/findstudentbyname/{stuName}",
+//      "UpstreamHttpMethod": [ "Get" ]
+//    },
+//    {
+//      "DownstreamPathTemplate": "/province/findprovincebyid/{id}",
+//      "DownstreamScheme": "http",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "192.168.20.133",
+//          "Port": 5300
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/getway/province/findprovincebyid/{id}",
+//      "UpstreamHttpMethod": [ "get" ]
+//    }
+//  ]
+//}
+
+
+{
+  "ReRoutes": [
+    {
+      "UseServiceDiscovery": true, //启用服务发现
+      "DownstreamPathTemplate": "/province/{url}", //下游转发路由
+      "DownstreamScheme": "http", //标识头
+      "ServiceName": "NetCoreApi-Service", //服务注册标识
+      "LoadBalancer": "RoundRobin", //服务均衡：轮询
+      "UpstreamPathTemplate": "/getway/province/{url}", //上游请求路由
+      "UpstreamHttpMethod": [ "Get", "Post" ], //请求的方法类型
+      "ReRoutesCaseSensitive": true //不区分大小写
+    },
+    {
+      "UseServiceDiscovery": true, //启用服务发现
+      "DownstreamPathTemplate": "/student/{url}", //下游转发路由
+      "DownstreamScheme": "https", //标识头
+      "ServiceName": "NetCoreApi-Service", //服务注册标识
+      "LoadBalancer": "RoundRobin", //服务均衡：轮询
+      "UpstreamPathTemplate": "/getway/student/{url}", //上游请求路由
+      "UpstreamHttpMethod": [ "Get", "Post" ], //请求的方法类型
+      "ReRoutesCaseSensitive": true //不区分大小写
+    }
+  ],
+  "GlobalConfiguration": {
+    //"BaseUrl": "http://localhost:7003",
+    "ServiceDiscoveryProvider": {
+      "Host": "192.168.200.235", // Consul Service IP
+      "Port": 8500, // Consul Service Port
+      "Type": "PollConsul",
+      "PollingInterval": 100 //健康检查时间端
+    }
+  }
+}

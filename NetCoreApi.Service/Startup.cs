@@ -127,7 +127,7 @@ namespace NetCoreApi.Service
                 Name = Configuration["Service:Name"],
             };
 
-            // app.RegisterConsul(lifeTime, healthService, consulService);
+            app.RegisterConsul(lifeTime, healthService, consulService);
         }
     }
 
