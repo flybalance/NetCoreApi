@@ -21,6 +21,11 @@ namespace NetCoreApi.Service
     public class Startup
     {
         /// <summary>
+        /// 全局配置
+        /// </summary>
+        public IConfiguration Configuration { get; private set; }
+
+        /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="configuration"></param>
@@ -28,11 +33,6 @@ namespace NetCoreApi.Service
         {
             Configuration = configuration;
         }
-
-        /// <summary>
-        /// 全局配置
-        /// </summary>
-        public IConfiguration Configuration { get; }
 
         /// <summary>
         /// 配置项目
@@ -48,6 +48,7 @@ namespace NetCoreApi.Service
                 options.Filters.Add<GlobalExceptionFilter>();
             });
 
+            // 使用Newtonsoft.Json托管系统json处理类
             //services.AddMvc().AddJsonOptions(options =>
             //    options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver()).
             //    SetCompatibilityVersion(CompatibilityVersion.Latest);
@@ -118,7 +119,7 @@ namespace NetCoreApi.Service
             // exceptionless
             //ExceptionlessClient.Default.Configuration.ApiKey = Configuration["Exceptionless:ApiKey"];
             //ExceptionlessClient.Default.Configuration.ServerUrl = Configuration["Exceptionless:ServerUrl"];
-            //ExceptionlessClient.Default.SubmittingEvent += OnSubmittingEvent;
+            ExceptionlessClient.Default.SubmittingEvent += OnSubmittingEvent;
             app.UseExceptionless(Configuration);
 
             // swagger

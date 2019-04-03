@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <Folder Include="Context\" />
-    <Folder Include="wwwroot\" />
     <Folder Include="RemoteService\" />
   </ItemGroup>
 
@@ -38,10 +37,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="appsettings.json">
+    <Content Update="wwwroot\Config\appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="hosting.json">
+    <Content Update="wwwroot\Config\hosting.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\favicon.ico">

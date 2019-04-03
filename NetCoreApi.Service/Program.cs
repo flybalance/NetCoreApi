@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using System.Reflection;
 
 namespace NetCoreApi.Service
 {
@@ -8,11 +9,13 @@ namespace NetCoreApi.Service
     {
         public static void Main(string[] args)
         {
+            var publishPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var configPath = Path.Combine(publishPath, "wwwroot/Config");
             var config = new ConfigurationBuilder()
-                                .SetBasePath(Directory.GetCurrentDirectory())
+                                .SetBasePath(configPath)
                                 // 指定服务启动的监听端口
-                                .AddJsonFile("hosting.json", optional: true)
-                                .AddJsonFile("appsettings.json", optional: true)
+                                .AddJsonFile(Path.Combine(configPath, "hosting.json"), optional: false)
+                                .AddJsonFile(Path.Combine(configPath, "appsettings.json"), optional: false, reloadOnChange: true)
                                 .Build();
 
             var host = new WebHostBuilder()
