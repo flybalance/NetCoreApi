@@ -35,7 +35,8 @@ namespace NetCoreApi.Service.Service.Impl
             if (null == student)
             {
                 EnumOperate.EnumItem enumItem = StudentErrorCode.REQUEST_PARAM_ENTITY_IS_NULL.GetBaseDescription();
-                apiResponse.Error(enumItem.Code, enumItem.Message);
+
+                return apiResponse.Error(enumItem.Code, enumItem.Message);
             }
 
             try
@@ -43,9 +44,10 @@ namespace NetCoreApi.Service.Service.Impl
                 _studentDao.AddStudent(student);
                 apiResponse.Success(true);
             }
-            catch (System.Exception exception)
+            catch (System.Exception)
             {
-                apiResponse.Error(exception.Message);
+                // 异常全部抛出，在全局异常处理类中捕获并处理
+                throw;
             }
 
             return apiResponse;
@@ -65,9 +67,9 @@ namespace NetCoreApi.Service.Service.Impl
                 Student student = _studentDao.FindStudentById(id);
                 apiResponse.Success(student);
             }
-            catch (System.Exception exception)
+            catch (System.Exception)
             {
-                apiResponse.Error(exception.Message);
+                throw;
             }
 
             return apiResponse;
@@ -85,7 +87,8 @@ namespace NetCoreApi.Service.Service.Impl
             if (string.IsNullOrEmpty(stuName))
             {
                 EnumOperate.EnumItem enumItem = BaseErrorCode.REQUEST_PARAM_ERROR.GetBaseDescription();
-                apiResponse.Error(enumItem.Code, enumItem.Message);
+
+                return apiResponse.Error(enumItem.Code, enumItem.Message);
             }
 
             try
@@ -93,9 +96,9 @@ namespace NetCoreApi.Service.Service.Impl
                 var studentList = _studentDao.FindStudentByName(stuName);
                 apiResponse.Success(studentList);
             }
-            catch (System.Exception exception)
+            catch (System.Exception)
             {
-                apiResponse.Error(exception.Message);
+                throw;
             }
 
             return apiResponse;

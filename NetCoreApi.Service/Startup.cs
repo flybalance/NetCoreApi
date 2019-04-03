@@ -1,10 +1,12 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Consul;
+using Exceptionless;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NetCoreApi.Service.Common.Filter;
 using NetCoreApi.Service.Common.Interface;
 using NetCoreApi.Service.Domain.Dto.consul;
 using System;
@@ -40,7 +42,12 @@ namespace NetCoreApi.Service
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             //services.AddOptions();
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                // 配置全局过滤器
+                options.Filters.Add<GlobalExceptionFilter>();
+            });
+
             //services.AddMvc().AddJsonOptions(options =>
             //    options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver()).
             //    SetCompatibilityVersion(CompatibilityVersion.Latest);
@@ -61,7 +68,6 @@ namespace NetCoreApi.Service
                 string xmlPath = Path.Combine(AppContext.BaseDirectory, "NetCoreApi.Service.xml");
                 options.IncludeXmlComments(xmlPath);
             });
-
 
             //AspNetCore.Mvc.Versioning
             //services.AddApiVersioning(o =>
@@ -106,8 +112,16 @@ namespace NetCoreApi.Service
             }
 
             app.UseMvc();
+            app.UseStaticFiles();
             //app.UseApiVersioning();
 
+            // exceptionless
+            //ExceptionlessClient.Default.Configuration.ApiKey = Configuration["Exceptionless:ApiKey"];
+            //ExceptionlessClient.Default.Configuration.ServerUrl = Configuration["Exceptionless:ServerUrl"];
+            //ExceptionlessClient.Default.SubmittingEvent += OnSubmittingEvent;
+            app.UseExceptionless(Configuration);
+
+            // swagger
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
@@ -128,6 +142,35 @@ namespace NetCoreApi.Service
             };
 
             app.RegisterConsul(lifeTime, healthService, consulService);
+        }
+
+        /// <summary>
+        /// 全局配置Exceptionless
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnSubmittingEvent(object sender, EventSubmittingEventArgs e)
+        {
+            //// 忽略已处理的异常
+            //if (!e.IsUnhandledError)
+            //{
+            //    return;
+            //}
+
+            // 忽略404错误
+            if (e.Event.IsNotFound())
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            // 忽略没有错误体的错误
+            if (null == e.Event.GetError())
+            {
+                return;
+            }
+
+            e.Event.MarkAsCritical();
         }
     }
 

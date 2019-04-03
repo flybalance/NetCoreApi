@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NetCoreApi.Service.Domain.Dto;
 using NetCoreApi.Service.Domain.Response;
-using System.Threading.Tasks;
 using NetCoreApi.Service.Service;
+using System.Threading.Tasks;
 
 namespace NetCoreApi.Service.Controllers
 {

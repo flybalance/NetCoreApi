@@ -9,3 +9,11 @@ services.AddMvc().AddJsonOptions(options =>
                 options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver())
 7、路由配置为小写
 services.AddRouting(options => options.LowercaseUrls = true);
+8、exceptonless 分布式日志收集组件
+9、全局异常捕获配置
+	GlobalExceptionFilter
+	 services.AddMvc(options =>
+     {
+         // 配置全局过滤器
+         options.Filters.Add<GlobalExceptionFilter>();
+     });

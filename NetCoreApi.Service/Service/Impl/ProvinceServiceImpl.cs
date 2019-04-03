@@ -69,9 +69,9 @@ namespace NetCoreApi.Service.Service.Impl
                 Province province = _provinceDao.FindProvinceById(id);
                 apiResponse.Success(province);
             }
-            catch (System.Exception exception)
+            catch (System.Exception)
             {
-                apiResponse.Error(exception.Message);
+                throw;
             }
 
             return apiResponse;
