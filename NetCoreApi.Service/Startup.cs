@@ -23,7 +23,7 @@ namespace NetCoreApi.Service
         /// <summary>
         /// 全局配置
         /// </summary>
-        public IConfiguration Configuration { get; private set; }
+        private readonly IConfiguration _configuration;
 
         /// <summary>
         /// 构造函数
@@ -31,7 +31,7 @@ namespace NetCoreApi.Service
         /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace NetCoreApi.Service
             //ExceptionlessClient.Default.Configuration.ApiKey = Configuration["Exceptionless:ApiKey"];
             //ExceptionlessClient.Default.Configuration.ServerUrl = Configuration["Exceptionless:ServerUrl"];
             ExceptionlessClient.Default.SubmittingEvent += OnSubmittingEvent;
-            app.UseExceptionless(Configuration);
+            app.UseExceptionless(_configuration);
 
             // swagger
             app.UseSwagger();
@@ -131,15 +131,15 @@ namespace NetCoreApi.Service
 
             ConsulService consulService = new ConsulService()
             {
-                IP = Configuration["Consul:IP"],
-                Port = Convert.ToInt32(Configuration["Consul:Port"])
+                IP = _configuration["Consul:IP"],
+                Port = Convert.ToInt32(_configuration["Consul:Port"])
             };
 
             HealthService healthService = new HealthService()
             {
-                IP = Configuration["Service:IP"],
-                Port = Convert.ToInt32(Configuration["Service:Port"]),
-                Name = Configuration["Service:Name"],
+                IP = _configuration["Service:IP"],
+                Port = Convert.ToInt32(_configuration["Service:Port"]),
+                Name = _configuration["Service:Name"],
             };
 
             app.RegisterConsul(lifeTime, healthService, consulService);

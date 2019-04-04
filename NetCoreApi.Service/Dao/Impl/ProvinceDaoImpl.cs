@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 using NetCoreApi.Service.Common.Utils;
 using NetCoreApi.Service.Domain.Dto;
 using System;
@@ -11,9 +12,9 @@ namespace NetCoreApi.Service.Dao.Impl
     {
         private readonly IMongoCollection<Province> _provinceContext = null;
 
-        public ProvinceDaoImpl()
+        public ProvinceDaoImpl(IConfiguration configuration)
         {
-            _provinceContext = MongoUtil<Province>.GetMongoCollection("province");
+            _provinceContext = MongoUtil<Province>.GetMongoCollection("province", configuration);
         }
 
         public void AddProvince(Province province)

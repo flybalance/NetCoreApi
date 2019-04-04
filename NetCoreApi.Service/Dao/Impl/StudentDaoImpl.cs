@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 using NetCoreApi.Service.Common.Utils;
 using NetCoreApi.Service.Domain.Dto;
 using System.Collections.Generic;
@@ -12,9 +13,9 @@ namespace NetCoreApi.Service.Dao.Impl
     {
         private readonly IMongoCollection<Student> _studentContext = null;
 
-        public StudentDaoImp()
+        public StudentDaoImp(IConfiguration configuration)
         {
-            _studentContext = MongoUtil<Student>.GetMongoCollection("student");
+            _studentContext = MongoUtil<Student>.GetMongoCollection("student", configuration);
         }
 
         /// <summary>

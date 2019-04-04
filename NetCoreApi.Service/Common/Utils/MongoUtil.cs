@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 
 namespace NetCoreApi.Service.Common.Utils
 {
@@ -10,7 +11,7 @@ namespace NetCoreApi.Service.Common.Utils
 
         private static readonly object lockHelper = new object();
 
-        public static IMongoCollection<T> GetMongoCollection(string collectionName = "")
+        public static IMongoCollection<T> GetMongoCollection(string collectionName, IConfiguration configuration)
         {
             if (null == mongoCollection)
             {
@@ -18,7 +19,7 @@ namespace NetCoreApi.Service.Common.Utils
                 {
                     if (null == mongoCollection)
                     {
-                        mongoDatabase = MongoDb.GetMongoDatabase;
+                        mongoDatabase = new MongoDb(configuration).GetMongoDatabase;
                         mongoCollection = mongoDatabase.GetCollection<T>(string.IsNullOrEmpty(collectionName) ? typeof(T).Name : collectionName);
                     }
                 }
@@ -30,9 +31,12 @@ namespace NetCoreApi.Service.Common.Utils
 
     public class MongoDb
     {
-        private static readonly string CONNECTION_STRING = "mongodb://192.168.20.133:27017";
+        private static IConfiguration _configuration;
 
-        private static readonly string MONGO_DB_NAME = "netcore";
+        public MongoDb(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         private static IMongoDatabase mongoDatabase = null;
 
@@ -41,7 +45,7 @@ namespace NetCoreApi.Service.Common.Utils
         /// <summary>
         /// 创建mongodb连接
         /// </summary>
-        public static IMongoDatabase GetMongoDatabase
+        public IMongoDatabase GetMongoDatabase
         {
             get
             {
@@ -51,8 +55,8 @@ namespace NetCoreApi.Service.Common.Utils
                     {
                         if (null == mongoDatabase)
                         {
-                            var client = new MongoClient(CONNECTION_STRING);
-                            mongoDatabase = client.GetDatabase(MONGO_DB_NAME);
+                            var client = new MongoClient(_configuration["Mongo:Uri"]);
+                            mongoDatabase = client.GetDatabase(_configuration["Mongo:DbName"]);
                         }
                     }
                 }
