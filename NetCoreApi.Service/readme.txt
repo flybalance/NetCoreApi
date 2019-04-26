@@ -17,3 +17,4 @@ services.AddRouting(options => options.LowercaseUrls = true);
          // 配置全局过滤器
          options.Filters.Add<GlobalExceptionFilter>();
      });
+10、添加ES中间件使用
