@@ -12,6 +12,12 @@ using NetCoreApi.Service.Domain.Dto.consul;
 using System;
 using System.IO;
 using System.Reflection;
+using StackExchange.Redis;
+using Elasticsearch.Net;
+using NetCoreApi.Service.Common.ElasticSearch;
+using Nest;
+using NetCoreApi.Service.Domain.Dto;
+using NetCoreApi.Service.Common.Swagger;
 
 namespace NetCoreApi.Service
 {
@@ -56,6 +62,10 @@ namespace NetCoreApi.Service
             // 路由配置为小写
             services.AddRouting(options => options.LowercaseUrls = true);
 
+            services.Configure<ElasticSearchConfig>(_configuration.GetSection("elasticSearch"));
+            services.AddSingleton<IConnectionPool, B2bElasticConnectionPool>();
+            services.AddScoped<IElasticClient, B2bElasticClient>();
+
             // Swagger
             services.AddSwaggerGen(options =>
             {
@@ -65,6 +75,9 @@ namespace NetCoreApi.Service
                     Title = "NetCore Swagger API 文档",
                     Description = "NetCore Swagger  API Doc"
                 });
+
+                //添加对控制器的标签(描述)
+                options.DocumentFilter<ApplyTagDescription>();
 
                 string xmlPath = Path.Combine(AppContext.BaseDirectory, "NetCoreApi.Service.xml");
                 options.IncludeXmlComments(xmlPath);
@@ -142,7 +155,7 @@ namespace NetCoreApi.Service
                 Name = _configuration["Service:Name"],
             };
 
-            app.RegisterConsul(lifeTime, healthService, consulService);
+            //app.RegisterConsul(lifeTime, healthService, consulService);
         }
 
         /// <summary>
