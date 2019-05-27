@@ -1,0 +1,61 @@
+﻿<SmartSqlMap Scope="DetailUser" xmlns="http://SmartSql.net/schemas/SmartSqlMap.xsd">
+  <!--实体与字段映射-->
+  <ResultMaps>
+    <ResultMap Id="DetailUserResult">
+      <Result Property="Id" Column="id"/>
+      <Result Property="Name" Column="name"/>
+      <Result Property="UserLevel" Column="user_level"/>
+      <Result Property="CreateTime" Column="create_time"/>
+    </ResultMap>
+  </ResultMaps>
+
+  <Statements>
+    <!--新增-->
+    <Statement Id="Insert">
+      INSERT INTO detail_user(name,user_level,create_time) VALUES(@Name,@UserLevel,@CreateTime)
+    </Statement>
+
+    <!--删除-->
+    <Statement Id="DeleteById">
+      DELETE FROM detail_user WHERE id = @Id
+    </Statement>
+
+    <!--更新-->
+    <Statement Id="Update">
+      UPDATE detail_user
+      <Set>
+        <IsNotEmpty Prepend="," Property="Name">
+          name = @Name
+        </IsNotEmpty>
+        <IsNotEmpty Prepend="," Property="UserLevel">
+          user_level = @UserLevel
+        </IsNotEmpty>
+        <IsNotEmpty Prepend="," Property="CreateTime">
+          create_time = @CreateTime
+        </IsNotEmpty>
+      </Set>
+      WHERE id=@Id
+    </Statement>
+
+    <!--根据id查询-->
+    <Statement Id="FindById" ResultMap="DetailUserResult">
+      SELECT * FROM detail_user WHERE id=@Id
+    </Statement>
+
+    <!--多条件查询-->
+    <Statement Id="QueryParams" ResultMap="DetailUserResult">
+      SELECT * FROM detail_user T
+      <Where>
+        <IsGreaterEqual Prepend="And" Property="Id" CompareValue="0">
+          T.Id = @Id
+        </IsGreaterEqual>
+        <IsNotEmpty Prepend="And" Property="Name">
+          T.Name Like '%'+@Name+'%'
+        </IsNotEmpty>
+        <IsNotEmpty Prepend="And" Property="Ids">
+          T.Id IN @Ids
+        </IsNotEmpty>
+      </Where>
+    </Statement>
+  </Statements>
+</SmartSqlMap>

@@ -18,3 +18,4 @@ services.AddRouting(options => options.LowercaseUrls = true);
          options.Filters.Add<GlobalExceptionFilter>();
      });
 10、添加ES中间件使用
+11、添加smartsql

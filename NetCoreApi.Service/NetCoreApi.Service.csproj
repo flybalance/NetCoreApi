@@ -32,9 +32,12 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="3.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-    <PackageReference Include="MongoDB.Driver" Version="2.8.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
+    <PackageReference Include="Mysql.Data" Version="8.0.16" />
     <PackageReference Include="NEST" Version="5.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="SmartSql" Version="4.0.48" />
+    <PackageReference Include="SmartSql.DIExtension" Version="4.0.48" />
     <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
     <PackageReference Include="WebApiClient.Extensions.DiscoveryClient" Version="2.0.3" />
@@ -46,6 +49,12 @@
     </Content>
     <Content Update="wwwroot\Config\hosting.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Config\Mapper\DetailUser.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Config\SmartSqlMapConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

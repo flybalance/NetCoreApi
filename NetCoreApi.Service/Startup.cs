@@ -1,23 +1,23 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Consul;
+using Elasticsearch.Net;
 using Exceptionless;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Nest;
+using NetCoreApi.Service.Common.ElasticSearch;
 using NetCoreApi.Service.Common.Filter;
 using NetCoreApi.Service.Common.Interface;
+using NetCoreApi.Service.Common.Swagger;
+using NetCoreApi.Service.Domain.Dto;
 using NetCoreApi.Service.Domain.Dto.consul;
+using SmartSql.ConfigBuilder;
 using System;
 using System.IO;
 using System.Reflection;
-using StackExchange.Redis;
-using Elasticsearch.Net;
-using NetCoreApi.Service.Common.ElasticSearch;
-using Nest;
-using NetCoreApi.Service.Domain.Dto;
-using NetCoreApi.Service.Common.Swagger;
 
 namespace NetCoreApi.Service
 {
@@ -58,6 +58,17 @@ namespace NetCoreApi.Service
             //services.AddMvc().AddJsonOptions(options =>
             //    options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver()).
             //    SetCompatibilityVersion(CompatibilityVersion.Latest);
+
+            // SmartSql配置
+            services.AddSmartSql(options =>
+            {
+                var publishPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+                var configPath = Path.Combine(publishPath, "wwwroot/Config");
+
+                // 定义实例别名，在多库场景下适用
+                options.UseAlias("SmartSqlSampleChapterOne")
+                .UseXmlConfig(ResourceType.File, configPath + "\\SmartSqlMapConfig.xml");
+            });
 
             // 路由配置为小写
             services.AddRouting(options => options.LowercaseUrls = true);

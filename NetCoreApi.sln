@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreApi.Service", "NetCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreApi.GetWay", "NetCoreApi.GetWay\NetCoreApi.GetWay.csproj", "{04EE46C7-BF04-455A-8B92-D33534A967E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreApi.Service.Test", "NetCoreApi.Service.Test\NetCoreApi.Service.Test.csproj", "{7470EFC8-37AD-43D2-B958-3AAD8B2C1DCB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{04EE46C7-BF04-455A-8B92-D33534A967E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04EE46C7-BF04-455A-8B92-D33534A967E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04EE46C7-BF04-455A-8B92-D33534A967E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7470EFC8-37AD-43D2-B958-3AAD8B2C1DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7470EFC8-37AD-43D2-B958-3AAD8B2C1DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7470EFC8-37AD-43D2-B958-3AAD8B2C1DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7470EFC8-37AD-43D2-B958-3AAD8B2C1DCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
