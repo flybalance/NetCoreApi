@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Exceptionless" Version="4.3.2027" />
+    <PackageReference Include="ServiceStack.Api.Swagger" Version="5.5.0" />
+    <PackageReference Include="ServiceStack.Core" Version="5.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetCoreApi.Service.ServiceInterface\NetCoreApi.ServiceStack.ServiceInterface.csproj" />
+    <ProjectReference Include="..\NetCoreApi.ServiceStack.ServiceModel\NetCoreApi.ServiceStack.ServiceModel.csproj" />
+  </ItemGroup>
+
+</Project>
