@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using SkyApm.Agent.AspNetCore;
 
 namespace NetCoreApi.ServiceStack
 {
@@ -7,14 +8,23 @@ namespace NetCoreApi.ServiceStack
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            //CreateHostBuilder(args).Build().Run();
+            var builder = Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseKestrel();
+                webBuilder.UseUrls("http://192.168.20.133:5000");
+                webBuilder.UseStartup<Startup>();
+                //webBuilder.ConfigureServices(services => services.AddSkyAPMCore());
+            });
+
+            builder.Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        //public static IHostBuilder CreateHostBuilder(string[] args) =>
+        //    Host.CreateDefaultBuilder(args)
+        //        .ConfigureWebHostDefaults(webBuilder =>
+        //        {
+        //            webBuilder.UseStartup<Startup>();
+        //        });
     }
 }

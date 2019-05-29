@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NetCoreApi.ServiceStack.ServiceInterface
 {
-    public class HelloWorldService : BaseService
+    public class ApiService : BaseService
     {
         /// <summary>
         /// HelloWorld 请求方法
@@ -23,6 +23,32 @@ namespace NetCoreApi.ServiceStack.ServiceInterface
             try
             {
                 string sayHi = $"消息内容为--{request.SayHi}";
+                apiResponse.Success(sayHi);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return await Task.FromResult(apiResponse);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ApiResponse<string>> Post(GetCounryInfoByNameRequest request)
+        {
+            ApiResponse<string> apiResponse = ApiResponse<string>.GetInstance();
+            if (null == request || string.IsNullOrEmpty(request.countryName))
+            {
+                return await Task.FromResult(apiResponse.Error());
+            }
+
+            try
+            {
+                string sayHi = $"国家名称--{request.countryName}";
                 apiResponse.Success(sayHi);
             }
             catch (Exception)

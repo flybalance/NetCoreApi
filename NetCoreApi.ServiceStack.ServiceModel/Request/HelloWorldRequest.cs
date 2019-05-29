@@ -3,8 +3,8 @@ using ServiceStack;
 
 namespace NetCoreApi.ServiceStack.ServiceModel.Request
 {
-    [Api("ServiceStack 第一个HelloWorld请求")]
-    [Route("/helloworld/first", Verbs = "GET", Summary = "GET请求", Notes = "Notes")]
+    [Api("ServiceStack service类请求")]
+    [Route("/service/first", Verbs = "GET", Summary = "helloworld", Notes = "Notes")]
     public class HelloWorldRequest : IReturn<ApiResponse<string>>
     {
         [ApiMember(Description = "消息内容", IsRequired = true)]
