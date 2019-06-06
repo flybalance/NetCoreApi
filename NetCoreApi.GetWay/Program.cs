@@ -15,6 +15,7 @@ namespace NetCoreApi.GetWay
 
             var host = new WebHostBuilder()
                               .UseKestrel()
+                              .UseUrls("http://192.168.20.133:8000")
                               .UseConfiguration(config)
                               .UseContentRoot(Directory.GetCurrentDirectory())
                               .UseStartup<Startup>()

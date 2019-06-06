@@ -3,9 +3,9 @@ using NetCoreApi.ServiceStack.ServiceModel.Response;
 using System;
 using System.Threading.Tasks;
 
-namespace NetCoreApi.ServiceStack.ServiceInterface
+namespace NetCoreApi.ServiceStack.ServiceInterface.Impl
 {
-    public class ApiService : BaseService
+    public class ApiService : BaseService, IApiService
     {
         /// <summary>
         /// HelloWorld 请求方法
@@ -55,6 +55,15 @@ namespace NetCoreApi.ServiceStack.ServiceInterface
             {
                 throw;
             }
+
+            return await Task.FromResult(apiResponse);
+        }
+
+        public async Task<ApiResponse<string>> Get(HealthCheckRequest request)
+        {
+            ApiResponse<string> apiResponse = ApiResponse<string>.GetInstance();
+
+            apiResponse.Success();
 
             return await Task.FromResult(apiResponse);
         }

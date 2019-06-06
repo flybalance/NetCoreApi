@@ -11,9 +11,9 @@ namespace NetCoreApi.ServiceStack
             //CreateHostBuilder(args).Build().Run();
             var builder = Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder =>
             {
-                webBuilder.UseKestrel();
-                webBuilder.UseUrls("http://192.168.20.133:5000");
-                webBuilder.UseStartup<Startup>();
+                webBuilder.UseKestrel().
+                UseUrls("http://192.168.20.133:5000").
+                UseStartup<Startup>();
                 //webBuilder.ConfigureServices(services => services.AddSkyAPMCore());
             });
 

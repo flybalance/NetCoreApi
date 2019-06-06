@@ -34,7 +34,7 @@
       "UseServiceDiscovery": true, //启用服务发现
       "DownstreamPathTemplate": "/{url}", //下游转发路由
       "DownstreamScheme": "http", //标识头
-      "ServiceName": "NetCoreApi-Service", //服务注册标识
+      "ServiceName": "NetCoreApi.ServiceStack", //服务注册标识
       "LoadBalancerOptions": {
         "Type": "RoundRobin" //服务均衡：轮询
       },

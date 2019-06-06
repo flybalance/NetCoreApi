@@ -1,5 +1,6 @@
 ﻿using NetCoreApi.ServiceStack.ServiceModel.Response;
 using ServiceStack;
+using ServiceStack.DataAnnotations;
 
 namespace NetCoreApi.ServiceStack.ServiceModel.Request
 {

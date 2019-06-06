@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ServiceStack.Api.Swagger" Version="5.5.0" />
+    <PackageReference Include="ServiceStack.Core" Version="5.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetCoreApi.ServiceStack.DiscoveryClient.ServiceInterface\NetCoreApi.ServiceStack.DiscoveryClient.ServiceInterface.csproj" />
+    <ProjectReference Include="..\NetCoreApi.ServiceStack.ServiceModel\NetCoreApi.ServiceStack.ServiceModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ServiceStack.Discovery.Consul">
+      <HintPath>..\..\..\servicestack-discovery-consul-develop\src\Servicestack.Discovery.Consul\bin\Debug\netstandard2.0\ServiceStack.Discovery.Consul.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
