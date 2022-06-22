@@ -35,7 +35,7 @@
     <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
     <PackageReference Include="Mysql.Data" Version="8.0.16" />
     <PackageReference Include="NEST" Version="5.5.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="SmartSql" Version="4.0.48" />
     <PackageReference Include="SmartSql.DIExtension" Version="4.0.48" />
     <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
